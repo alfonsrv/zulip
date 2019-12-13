@@ -223,6 +223,18 @@ email address, if it isn't the same as the "Zulip username").
     AUTH_LDAP_USER_SEARCH = LDAPSearch("ou=users,dc=example,dc=com",
                                        ldap.SCOPE_SUBTREE, "(mail=%(user)s)")
     ```
+While setting the corresponding `AUTH_LDAP_REVERSE_EMAIL_SEARCH` to one of:
+    
+* To reverse access by Active Directory email address, if sAMAccountName does not conclude to a user's mail:
+    ```
+    AUTH_LDAP_USER_SEARCH = LDAPSearch("ou=users,dc=example,dc=com",
+                                       ldap.SCOPE_SUBTREE, "(mail=%(email)s)")
+    ```
+    
+* To reverse access by Active Directory email address:
+    ```
+    AUTH_LDAP_REVERSE_EMAIL_SEARCH = AUTH_LDAP_USER_SEARCH
+    ```
 
 **If you are using LDAP for authentication**: you will need to enable
 the `zproject.backends.ZulipLDAPAuthBackend` auth backend, in
